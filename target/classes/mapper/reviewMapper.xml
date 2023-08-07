@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.human.dao.IF_ReviewDAO">
+	<insert id="insert" parameterType="com.human.VO.ReviewVO">
+		insert into review values(review_sq.nextval,#{id},#{cno},#{point},#{con},#{filename},#{title},#{state})
+	</insert>
+
+	<select id="reviewList" parameterType="String" resultType="com.human.VO.ReviewVO">
+		select *
+		from review
+		where cno=#{cno}
+	</select>
+
+
+	<delete id="delreview" parameterType="Integer">
+		delete from review where rno=#{rno}
+	</delete>
+</mapper>

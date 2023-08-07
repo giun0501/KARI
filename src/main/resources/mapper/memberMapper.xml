@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.human.dao.IF_MembershipDAO">
+	<insert id="insert" parameterType="com.human.VO.MemberVO">
+		insert into membership values(#{id},#{name},#{pass},#{phone},#{email})
+	</insert>
+
+	<select id="idchk" parameterType="String" resultType="Integer">
+		select count(*) from membership where id=#{id}
+	</select>
+
+	<select id="loginchk" parameterType="hashmap" resultType="com.human.VO.MemberVO">
+		select * from membership where id=#{id} and pass=#{pass}	
+	</select>
+
+
+	<select id="userinfo" parameterType="String" resultType="com.human.VO.MemberVO">
+		select * from membership where id=#{id}
+	</select>
+	
+	<delete id="delMember" parameterType="String">
+		delete from membership where id=#{id}
+	</delete>
+	
+	<update id="mod_pro" parameterType="com.human.VO.MemberVO">
+		update membership
+		set
+		phone=#{phone},
+		pass=#{pass}
+		where id=#{id}
+	</update>
+	
+	
+	<select id="chk_info" parameterType="hashmap" resultType="Integer">
+		select count(*) from membership where id=#{id} and pass=#{pass}
+	</select>
+</mapper>

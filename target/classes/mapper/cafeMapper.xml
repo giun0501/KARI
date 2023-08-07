@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.human.dao.IF_CafeDAO">
+	<select id="cafeList" parameterType="String" resultType="com.human.VO.CafeVO">
+		select * from cafe where cate=#{cate} order by ccnt desc
+	</select>
+
+	<select id="cafeInfo" parameterType="String" resultType="com.human.VO.CafeVO">
+		select * from cafe where cname=#{cname}
+	</select>
+	
+	<select id="cntUpdate" parameterType="String">
+		update cafe set ccnt = ccnt+1 where cno=#{cno}
+	</select>
+	
+	<select id="cafe_search" parameterType="String" resultType="com.human.VO.CafeVO">
+		select * from cafe where cname like '%'||#{cname}||'%'
+	</select>
+
+</mapper>

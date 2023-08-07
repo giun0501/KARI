@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.human.dao.IF_BoardDAO">
+	<select id="selectall" resultType="com.human.VO.BoardVO"
+		parameterType="com.human.VO.PageVO">
+		select * from(select rownum as rcol, sub.*
+		from (select * from board
+		<if test="search_word != null">
+			where title like '%'||#{search_word}||'%'
+		</if>
+		order by num desc) sub)
+		where rcol between #{startNo} and #{endNo}
+	</select>
+
+	<delete id="delBoard" parameterType="int">
+		delete from board
+		where
+		num=#{delno}
+	</delete>
+	<select id="viewDetail" resultType="com.human.VO.BoardVO"
+		parameterType="int">
+		select * from board where num=#{num}
+	</select>
+	<select id="modBoard" parameterType="int" resultType="com.human.VO.BoardVO">
+		select * from board where num=#{bno}
+	</select>
+	
+	<update id="modpro" parameterType="com.human.VO.BoardVO">
+		update board
+		set
+		title=#{title},
+		bcon=#{bcon}
+		where num=#{num}
+	</update>
+	
+	
+	
+	<select id="totalCount" resultType="int" parameterType="String">
+		select count(*) from board
+		<if test="value != null">
+			where title like '%'||#{value}||'%'
+		</if>
+	</select>
+	<insert id = "boardWrite" parameterType="com.human.VO.BoardVO">
+		insert into board values
+		(board_sq.nextval, #{id}, #{bcon}, default, #{title})
+	</insert>
+	
+
+</mapper>
